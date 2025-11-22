@@ -22,8 +22,8 @@ class Posts(models.Model):
 
     title = models.CharField(max_length=256, default='Without title')
     slug = models.SlugField(blank=True)
-    content = models.CharField(max_length=4096)
-    theme = models.ManyToManyField(Themes, related_name='posts')
+    content = models.TextField(max_length=4096)
+    theme = models.ManyToManyField('Themes', related_name='posts_by_theme')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts_of_author')
     is_published = models.BooleanField()
     time_create = models.DateTimeField(auto_now_add=True)

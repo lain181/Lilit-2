@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
 
-
+from lilit import settings
+from users.models import CustomUser
 
 
 class Communities(models.Model):
@@ -11,7 +12,7 @@ class Communities(models.Model):
     about = models.TextField(max_length=4096)
     themes = models.ManyToManyField('posts.Themes', related_name='communities_by_theme',)
 
-    member=models.ManyToManyField(User, related_name='communities_of_member')
+    member=models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='communities_of_member')
     is_creator=models.BooleanField(default=False)
     is_admin=models.BooleanField(default=False)
     is_redactor = models.BooleanField(default=False)

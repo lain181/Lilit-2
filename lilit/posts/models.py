@@ -5,6 +5,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 from communities.models import Communities
+from lilit import settings
+from users.models import CustomUser
 
 
 def generate_random_string(length):
@@ -31,7 +33,7 @@ class Posts(models.Model):
     slug = models.SlugField(blank=True)
     content = models.TextField(max_length=4096)
     theme = models.ManyToManyField('posts.Themes', related_name='posts_by_theme')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts_of_author')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts_of_author')
     community = models.ForeignKey(Communities, on_delete=models.CASCADE, related_name='posts_of_community', null=True)
     is_published = models.BooleanField()
 

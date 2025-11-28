@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     'users',
     'communities',
     'comments',
-
-
-
 ]
 
 MIDDLEWARE = [
@@ -117,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -149,4 +146,8 @@ LOGGING = {
     }
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
+SESSION_COOKIE_SECURE = True

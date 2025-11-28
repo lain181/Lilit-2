@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from users.models import VerificationCodes, CustomUser
+
+admin.site.register(VerificationCodes)
+admin.site.register(CustomUser)

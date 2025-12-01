@@ -3,10 +3,11 @@ import random
 from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 from communities.models import Communities
 from lilit import settings
-from users.models import CustomUser
+
 
 
 def generate_random_string(length):
@@ -33,13 +34,15 @@ class Posts(models.Model):
     slug = models.SlugField(blank=True)
     content = models.TextField(max_length=4096)
     theme = models.ManyToManyField('posts.Themes', related_name='posts_by_theme')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts_of_author')
-    community = models.ForeignKey(Communities, on_delete=models.CASCADE, related_name='posts_of_community', null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts_of_author')
+    community = models.ForeignKey(Communities, on_delete=models.CASCADE, related_name='posts_of_community', null=True, blank=True)
     is_published = models.BooleanField()
 
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True, blank=True, null=True)
 
+    def get_absolute_url(self):
+        return reverse('post',kwargs={'slug':self.slug})
     def __str__(self):
         return self.title
 

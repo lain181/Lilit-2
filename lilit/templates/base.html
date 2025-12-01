@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+<p><h2>LILITH</h2></p>
+
+{% if user.is_authenticated %}
+    <p><a href="{% url 'account_logout' %}">Logout</a></p>
+{% else %}
+    <p><a href="{% url 'account_login' %}">Login</a>
+    -
+    <a href="{% url 'account_signup' %}">Signup</a></p>
+{% endif %}
+
+
+{% block content %}
+
+{% endblock %}
+</body>
+</html>

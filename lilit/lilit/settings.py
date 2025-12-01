@@ -42,14 +42,24 @@ INSTALLED_APPS = [
     'users',
     'communities',
     'comments',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -59,7 +69,7 @@ ROOT_URLCONF = 'lilit.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -146,8 +156,33 @@ LOGGING = {
     }
 }
 
+
+AUTHENTICATION_BACKENDS = [
+    # для админ-панели и использования request.user:
+    'django.contrib.auth.backends.ModelBackend',
+
+    # для логина по username или email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Настройки URL-адресов
+LOGIN_REDIRECT_URL = '/'  # Куда перенаправить после успешного логина
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # Куда перенаправить после логаута
+
+# Настройки email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-AUTH_USER_MODEL = 'users.CustomUser'
 
-SESSION_COOKIE_SECURE = True
+
+
+
+ACCOUNT_LOGIN_METHODS={"email"}
+ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+
+
+
+# SESSION_COOKIE_SECURE = True

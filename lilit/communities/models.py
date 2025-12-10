@@ -13,6 +13,7 @@ class Communities(models.Model):
     themes = models.ManyToManyField('posts.Themes', related_name='communities_by_theme',)
 
     member=models.ManyToManyField(User, related_name='communities_of_member')
+
     is_creator=models.BooleanField(default=False)
     is_admin=models.BooleanField(default=False)
     is_redactor = models.BooleanField(default=False)

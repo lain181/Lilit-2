@@ -1,6 +1,8 @@
 Django
 djangorestframework
 django-allauth
+django-debug-toolbar
+django-treebeard
 psycopg2-binary
 psycopg2
 celery[redis]

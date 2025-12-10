@@ -20,6 +20,9 @@ class Themes(models.Model):
     theme = models.CharField(max_length=128)
     slug = models.SlugField(blank=True)
 
+    def get_absolute_url(self):
+        return reverse('posts_by_theme', kwargs={'slug':self.slug})
+
     def __str__(self):
         return self.theme
 

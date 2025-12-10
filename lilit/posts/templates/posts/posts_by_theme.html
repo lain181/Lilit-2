@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p><h2>{{ theme.theme|upper }}</h2></p>
+
+{% for i in posts_by_theme %}
+<p>-------------------------</p>
+{% if i.community.name %}
+    <p>{{ i.community.name}}</p>
+{% else %}
+    <p>{{ i.author.username }}</p>
+{% endif %}
+<p> {% for o in i.theme.all %}
+        -{{ o.theme}}-
+    {% endfor %}</p>
+<p>{{ i }}</p>
+<p>{{ i.content }}</p>
+<a href="{{i.get_absolute_url}}">More</a>
+{% endfor %}</p>
+{% endblock %}

@@ -1,0 +1,12 @@
+
+
+{{ node.comment.author.username }}:{{ node.comment.comment_text }}
+
+<p><a href="{% url 'reply' id=node.comment.id %}?next={{ request.build_absolute_uri|urlencode }}">Reply</a></p>
+
+<p><ul>
+    {% for child in node.children %}
+
+        {% include 'posts/recurse_reply.html' with node=child %}
+    {% endfor %}
+</ul></p>

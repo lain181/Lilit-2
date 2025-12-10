@@ -1,3 +1,4 @@
+{% load themes_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
     <title>{{title}}</title>
 </head>
 <body>
-<p><h2>LILITH</h2></p>
+<p><h2><a href = "{% url 'feed' %}">LILITH</a></h2></p>
 
 {% if user.is_authenticated %}
     <p><a href="{% url 'account_logout' %}">Logout</a></p>
@@ -14,8 +15,13 @@
     -
     <a href="{% url 'account_signup' %}">Signup</a></p>
 {% endif %}
-
-
+<p>------------</p>
+<p><a href="{% url 'new_post'%}">Create post</a> </p>
+<p>------------</p>
+{% get_themes as themes%}
+{% for theme in themes %}
+    <p><a href="{{ theme.get_absolute_url }}"> {{ theme.theme }}</a></p>
+{% endfor %}
 {% block content %}
 
 {% endblock %}

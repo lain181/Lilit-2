@@ -1,18 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-
-{{post}}
-{{post.content}}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Publish</button>
 </form>
-<p>_________________________________</p>
-{% for node in comments %}
-
-    {% include 'posts/recurse_reply.html' with node=node %}
-
-{% endfor %}
-
 {% endblock %}
